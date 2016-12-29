@@ -2,7 +2,7 @@
 
 # Place kernel zip from https://www.asus.com/ZenWatch/ASUS-ZenWatch-3-WI503Q/HelpDesk_Download/ here.
 
-OMNI_TREE="~/Development/Android/TWRP/" # Enter path of your Omni tree with the toolchain here
+OMNI_TREE="/home/max/Development/Android/TWRP" # Enter path of your Omni tree with the toolchain here
 
 echo "Welcome!"
 
@@ -35,5 +35,5 @@ export CROSS_COMPILE=$OMNI_TREE/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin/arm
 echo "Starting compilation.."
 make clean
 make swift_defconfig
-make
+make -j5
 
