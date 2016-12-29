@@ -24,8 +24,8 @@ echo "Compiling kernel"
 cd kernel
 
 # Patch Makefile
-echo "Trying to patch Makefile. Fails if already patched, but that's ok."
-git apply ../Patch-Makefile.patch
+echo "Trying to patch Makefile.."
+patch -N -r /dev/null Makefile ../Patch-Makefile.patch
 
 # Exports
 export ARCH=arm
