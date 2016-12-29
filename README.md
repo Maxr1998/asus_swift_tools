@@ -1,0 +1,4 @@
+# Kernel build script for Asus Zenwatch3 (swift)
+
+This script allows you to compile the kernel of the Asus Zenwatch3 easily. You only need to download the current kernel sources from the [Asus support website](https://www.asus.com/ZenWatch/ASUS-ZenWatch-3-WI503Q/HelpDesk_Download/) and place it into this clone directory, as well as point the `OMNI_TREE` variable in the `build.sh` to the path of your OmniRom source tree (needed for the gcc-4.8 toolchain).
+It then automatically extracts the archive, patches the Makefile [with a fix from T10NAZ](http://forum.xda-developers.com/showpost.php?p=65954322&postcount=5) *(thanks!)* and then compiles the kernel.
