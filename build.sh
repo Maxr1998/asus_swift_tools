@@ -36,4 +36,6 @@ echo "Starting compilation.."
 make clean
 make swift_defconfig
 make -j5
+# Copy kernel
+cp "arch/arm/boot/zImage-dtb" ../zImage-dtb
 
