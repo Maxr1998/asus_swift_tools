@@ -2,29 +2,26 @@
 
 # Place kernel zip from https://www.asus.com/ZenWatch/ASUS-ZenWatch-3-WI503Q/HelpDesk_Download/ here.
 
-OMNI_TREE="/home/max/Development/Android/TWRP" # Enter path of your Omni tree with the toolchain here
-
-echo "Welcome!"
+OMNI_TREE="$PWD/../TWRP" # Enter path of your Omni tree with the toolchain here
 
 ##################
 # Setup
 ##################
-if [ ! -d kernel ]; then
-  echo "Extracting files.."
-  unzip "WI503Q_kernel_*.zip"
-  tar -xf ASUS_Swift-*-kernel-src.tar
+if [ ! -e msm ]; then
+    echo "Cloning kernel repository.."
+    git clone https://android.googlesource.com/kernel/msm.git -b android-msm-swift-3.18-nougat-dr-release
 fi
+cd msm
+echo "Pulling latest commits if necessary."
+git pull
 
-echo "Press any key to continue, Ctrl + C to cancel."
+echo "Done, do you want to compile now? (Press Ctrl+C to cancel.)"
 read
 ##################
 # Compile kernel
 ##################
-echo "Compiling kernel"
-cd kernel
-
 # Patch Makefile
-echo "Trying to patch Makefile.."
+echo "Ok. Trying to patch Makefile."
 patch -N -r /dev/null Makefile ../Patch-Makefile.patch
 
 # Exports
@@ -35,7 +32,10 @@ export CROSS_COMPILE=$OMNI_TREE/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin/arm
 echo "Starting compilation.."
 make clean
 make swift_defconfig
-make -j5
+make -j18
 # Copy kernel
-cp "arch/arm/boot/zImage-dtb" ../zImage-dtb
+if [ $? -eq 0 ]; then
+    echo "Copying"
+    cp "arch/arm/boot/zImage-dtb" ../zImage-dtb   
+fi
 

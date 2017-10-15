@@ -1,0 +1,5 @@
+# Kernel dir
+/msm/
+
+# Kernel binary result
+/zImage-dtb
